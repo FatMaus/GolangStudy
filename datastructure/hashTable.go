@@ -30,11 +30,8 @@ type HashTable struct {
 
 // NewHashTable 构造函数，创建一个新哈希表
 func NewHashTable(CAP int) *HashTable {
+	// 创建新数组，默认值nil
 	var Array = make([]*HashNode, CAP)
-	// 数组填入填充元素
-	for i := 0; i < CAP; i++ {
-		Array[i] = nil
-	}
 	return &HashTable{
 		CAP:   CAP,
 		size:  0,
@@ -85,9 +82,6 @@ func (h *HashTable) expansion() {
 	h.CAP *= 2
 	h.size = 0
 	h.Array = make([]*HashNode, h.CAP)
-	for i := 0; i < h.CAP; i++ {
-		h.Array[i] = nil
-	}
 	for _, node := range backup {
 		for node != nil {
 			h.Add(node.key, node.value)
