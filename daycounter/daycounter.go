@@ -31,7 +31,7 @@ func InputTime(timeStr string) time.Time {
 		timeObj      time.Time
 	)
 	if timeStr == "now" {
-		timeObj := time.Now()
+		timeObj = time.Now()
 		return timeObj
 	}
 	loc, _ := time.LoadLocation("Asia/Shanghai")
@@ -68,39 +68,41 @@ func InputTime(timeStr string) time.Time {
 
 // DuringDay 天数差
 func (t *TimeCount) DuringDay(t2 *TimeCount) int {
-	var durTime = t2.FromNow - t.FromNow
-	durDay := int(durTime.Hours() / 24)
+	var durTime time.Duration = t2.FromNow - t.FromNow
+	var durDay int = int(durTime.Hours() / 24)
 	return durDay
 }
 
 // DuringHour 小时差
 func (t *TimeCount) DuringHour(t2 *TimeCount) int {
-	var durTime = t2.FromNow - t.FromNow
-	durHour := int(durTime.Hours())
+	var durTime time.Duration = t2.FromNow - t.FromNow
+	var durHour int = int(durTime.Hours())
 	return durHour
 }
 
 // DuringMinute 分钟差
 func (t *TimeCount) DuringMinute(t2 *TimeCount) int {
-	var durTime = t2.FromNow - t.FromNow
-	durMinute := int(durTime.Minutes())
+	var durTime time.Duration = t2.FromNow - t.FromNow
+	var durMinute int = int(durTime.Minutes())
 	return durMinute
 }
 
 // DuringSecond 秒差
 func (t *TimeCount) DuringSecond(t2 *TimeCount) int {
-	var durTime = t2.FromNow - t.FromNow
-	durSecond := int(durTime.Seconds())
+	var durTime time.Duration = t2.FromNow - t.FromNow
+	var durSecond int = int(durTime.Seconds())
 	return durSecond
 }
 
 // DuringDetail 详细时间差
 func (t *TimeCount) DuringDetail(t2 *TimeCount) string {
-	var durTime = t2.FromNow - t.FromNow
-	second := strconv.Itoa(int(durTime.Seconds()) % 60)
-	minute := strconv.Itoa(int(durTime.Minutes()) % 60)
-	hour := strconv.Itoa(int(durTime.Hours()) % 24)
-	day := strconv.Itoa(int(durTime.Hours() / 24))
-	var detail = fmt.Sprintf("%s days %s hours %s minute %s seconds", day, hour, minute, second)
+	var (
+		durTime time.Duration = t2.FromNow - t.FromNow
+		minute  string        = strconv.Itoa(int(durTime.Minutes()) % 60)
+		hour    string        = strconv.Itoa(int(durTime.Hours()) % 24)
+		day     string        = strconv.Itoa(int(durTime.Hours() / 24))
+		second  string        = strconv.Itoa(int(durTime.Seconds()) % 60)
+	)
+	var detail string = fmt.Sprintf("%s days %s hours %s minute %s seconds", day, hour, minute, second)
 	return detail
 }
