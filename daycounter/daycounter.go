@@ -28,6 +28,7 @@ func InputTime(timeStr string) time.Time {
 		minuteStrLen int = len("2006/01/02-15:04")
 		secondStrLen int = len("2006/01/02-15:04:05")
 		timeObj      time.Time
+		formatStr    string
 	)
 	if timeStr == "now" {
 		timeObj = time.Now()
@@ -36,33 +37,22 @@ func InputTime(timeStr string) time.Time {
 	loc, _ := time.LoadLocation("Asia/Shanghai")
 	switch {
 	case len(timeStr) == dayStrLen:
-		timeObj, err := time.ParseInLocation("2006/01/02", timeStr, loc)
-		if err != nil {
-			fmt.Println("Format error, try again", err)
-		}
-		return timeObj
+		formatStr = "2006/01/02"
 	case len(timeStr) == hourStrLen:
-		timeObj, err := time.ParseInLocation("2006/01/02-15", timeStr, loc)
-		if err != nil {
-			fmt.Println("Format error, try again", err)
-		}
-		return timeObj
+		formatStr = "2006/01/02-15"
 	case len(timeStr) == minuteStrLen:
-		timeObj, err := time.ParseInLocation("2006/01/02-15:04", timeStr, loc)
-		if err != nil {
-			fmt.Println("Format error, try again", err)
-		}
-		return timeObj
+		formatStr = "2006/01/02-15:04"
 	case len(timeStr) == secondStrLen:
-		timeObj, err := time.ParseInLocation("2006/01/02-15:04:05", timeStr, loc)
-		if err != nil {
-			fmt.Println("Format error, try again", err)
-		}
-		return timeObj
+		formatStr = "2006/01/02-15:04:05"
 	default:
 		fmt.Println("format error")
 		return timeObj
 	}
+	timeObj, err := time.ParseInLocation(formatStr, timeStr, loc)
+	if err != nil {
+		fmt.Println("Format error, try again", err)
+	}
+	return timeObj
 }
 
 // DuringDay 天数差
