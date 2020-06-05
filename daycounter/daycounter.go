@@ -34,7 +34,6 @@ func InputTime(timeStr string) time.Time {
 		timeObj = time.Now()
 		return timeObj
 	}
-	loc, _ := time.LoadLocation("Asia/Shanghai")
 	switch {
 	case len(timeStr) == dayStrLen:
 		formatStr = "2006/01/02"
@@ -48,6 +47,7 @@ func InputTime(timeStr string) time.Time {
 		fmt.Println("format error")
 		return timeObj
 	}
+	loc, _ := time.LoadLocation("Asia/Shanghai")
 	timeObj, err := time.ParseInLocation(formatStr, timeStr, loc)
 	if err != nil {
 		fmt.Println("Format error, try again", err)
