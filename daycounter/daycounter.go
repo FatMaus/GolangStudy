@@ -2,7 +2,6 @@ package daycounter
 
 import (
 	"fmt"
-	"strconv"
 	"time"
 )
 
@@ -98,11 +97,38 @@ func (t *TimeCount) DuringSecond(t2 *TimeCount) int {
 func (t *TimeCount) DuringDetail(t2 *TimeCount) string {
 	var (
 		durTime time.Duration = t2.FromNow - t.FromNow
-		minute  string        = strconv.Itoa(int(durTime.Minutes()) % 60)
-		hour    string        = strconv.Itoa(int(durTime.Hours()) % 24)
-		day     string        = strconv.Itoa(int(durTime.Hours() / 24))
-		second  string        = strconv.Itoa(int(durTime.Seconds()) % 60)
+		minute  int           = int(durTime.Minutes()) % 60
+		hour    int           = int(durTime.Hours()) % 24
+		day     int           = int(durTime.Hours()) / 24
+		second  int           = int(durTime.Seconds()) % 60
 	)
-	var detail string = fmt.Sprintf("%s days %s hours %s minute %s seconds", day, hour, minute, second)
+	var detail string = fmt.Sprintf("%v days %v hours %v minute %v seconds", day, hour, minute, second)
 	return detail
+}
+
+// AfterSeconds 获得若干秒之后的时间
+func (t *TimeCount) AfterSeconds(second int) time.Time {
+	var counts time.Duration = time.Duration(second)
+	var target time.Time = t.Time.Add(counts * time.Second)
+	return target
+}
+
+// AfterMinutes 获得若干分钟后的时间
+func (t *TimeCount) AfterMinutes(minute int) time.Time {
+	var counts time.Duration = time.Duration(minute)
+	var target time.Time = t.Time.Add(counts * time.Minute)
+	return target
+}
+
+// AfterHours 获得若干小时后的时间
+func (t *TimeCount) AfterHours(hour int) time.Time {
+	var counts time.Duration = time.Duration(hour)
+	var target time.Time = t.Time.Add(counts * time.Hour)
+	return target
+}
+
+// AfterDays 获得若干天后的时间
+func (t *TimeCount) AfterDays(day int) time.Time {
+	var hour int = day * 24
+	return t.AfterHours(hour)
 }
