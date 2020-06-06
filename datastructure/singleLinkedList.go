@@ -23,8 +23,8 @@ type SingleLinkList struct {
 	size int
 }
 
-// 构造函数，构造一个单链表
-func newSingleLinkList() *SingleLinkList {
+// NewSingleLinkList 构造函数，构造一个单链表
+func NewSingleLinkList() *SingleLinkList {
 	return &SingleLinkList{
 		head: nil,
 		tail: nil,
