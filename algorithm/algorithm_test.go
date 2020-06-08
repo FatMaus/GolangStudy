@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// TestBubble 冒泡排序测试
 func TestBubble(t *testing.T) {
 	type testSample []struct {
 		input []int
@@ -25,6 +26,7 @@ func TestBubble(t *testing.T) {
 	}
 }
 
+// TestInsert 插入排序测试
 func TestInsert(t *testing.T) {
 	type testSample struct {
 		input []int
@@ -45,6 +47,7 @@ func TestInsert(t *testing.T) {
 	}
 }
 
+// TestQuick 快排测试
 func TestQuick(t *testing.T) {
 	type testSample struct {
 		input []int
@@ -65,6 +68,7 @@ func TestQuick(t *testing.T) {
 	}
 }
 
+// TestMerge 并归排序测试
 func TestMerge(t *testing.T) {
 	type testSample struct {
 		input []int
