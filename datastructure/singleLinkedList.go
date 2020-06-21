@@ -1,6 +1,9 @@
 package datastructure
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 // SingleLinkNode 单链表节点
 type SingleLinkNode struct {
@@ -156,4 +159,23 @@ func (s *SingleLinkList) Display() {
 		fmt.Print(cur.value, ", ")
 		cur = cur.nextEle
 	}
+}
+
+// IsCircle 判断链表是否是循环链表，设定两个变量，行进速度不同，若某一刻等同，则闭环
+func (s *SingleLinkList) IsCircle() bool {
+	var node1 = s.head
+	var node2 = s.head
+	var isCircle bool = false
+	for i := 0; i < s.size; i++ {
+		if reflect.DeepEqual(node1, node2) {
+			isCircle = true
+			break
+		} else if node2 == nil {
+			break
+		} else {
+			node1 = node1.nextEle
+			node2 = node2.nextEle.nextEle
+		}
+	}
+	return isCircle
 }
