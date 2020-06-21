@@ -90,3 +90,24 @@ func TestMerge(t *testing.T) {
 		})
 	}
 }
+
+// TestRotateArray 测试旋转数组最小值
+func TestRotateArray(t *testing.T) {
+	type testSample struct {
+		input []int
+		want  int
+	}
+	tests := map[string]testSample{
+		"rotate1": {input: []int{5, 6, 7, 8, 9, 1, 2, 3, 4}, want: 1},
+		"rotate2": {input: []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, want: 0},
+		"rotate3": {input: []int{8, 9, 1, 2, 3, 4, 5, 6, 7}, want: 1},
+	}
+	for name, ts := range tests {
+		t.Run(name, func(t *testing.T) {
+			get := rotateArray(ts.input)
+			if !reflect.DeepEqual(get, ts.want) {
+				t.Errorf("want %v, but got %v", ts.want, get)
+			}
+		})
+	}
+}
