@@ -104,7 +104,7 @@ func TestRotateArray(t *testing.T) {
 	}
 	for name, ts := range tests {
 		t.Run(name, func(t *testing.T) {
-			get := rotateArray(ts.input)
+			get := RotateArray(ts.input)
 			if !reflect.DeepEqual(get, ts.want) {
 				t.Errorf("want %v, but got %v", ts.want, get)
 			}
