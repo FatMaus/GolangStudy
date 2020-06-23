@@ -15,7 +15,8 @@ func QuickSort(numArr []int, left int, right int) {
 // partition 通过基准元素快速分类，找到分治点以便分治
 func partition(numArr []int, left int, right int) int {
 	// 按兴趣取一个基准元素
-	var pivot = numArr[right]
+	var baseIndex = right
+	var pivot = numArr[baseIndex]
 	var leftIndex int = left
 	var rightIndex int = right - 1
 	// 只用排n-1个元素即可，双向排序到中间会和
@@ -34,7 +35,7 @@ func partition(numArr []int, left int, right int) int {
 		}
 	}
 	// 基准元素放到合适的位置，返回分治点
-	swap(numArr, leftIndex, right)
+	swap(numArr, leftIndex, baseIndex)
 	return leftIndex
 }
 
