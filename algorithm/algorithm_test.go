@@ -26,6 +26,27 @@ func TestBubble(t *testing.T) {
 	}
 }
 
+// TestSelect 选择排序测试
+func TestSelect(t *testing.T) {
+	type testSample []struct {
+		input []int
+		want  []int
+	}
+	tests := testSample{
+		{input: []int{85, 6, 55, 54, 87, 32, 92, 17, 12, 19}, want: []int{6, 12, 17, 19, 32, 54, 55, 85, 87, 92}},
+		{input: []int{83, 39, 56, 50, 22, 58, 53, 38, 88, 39}, want: []int{22, 38, 39, 39, 50, 53, 56, 58, 83, 88}},
+		{input: []int{65, 75, 99, 11, 65, 33, 34, 24, 56, 29}, want: []int{11, 24, 29, 33, 34, 56, 65, 65, 75, 99}},
+	}
+	for index, ts := range tests {
+		var helpArr = make([]int, len(ts.input), len(ts.input))
+		copy(helpArr, ts.input)
+		SelectionSort(helpArr)
+		if !reflect.DeepEqual(helpArr, ts.want) {
+			t.Errorf("No %v: want %v, but got %v", index, ts.want, helpArr)
+		}
+	}
+}
+
 // TestInsert 插入排序测试
 func TestInsert(t *testing.T) {
 	type testSample struct {
