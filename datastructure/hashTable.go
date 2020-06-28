@@ -94,17 +94,20 @@ func (h *HashTable) expansion() {
 func (h *HashTable) Get(key string) int {
 	var ArrIndex = h.getIndex(key)
 	var head = h.Array[ArrIndex]
+	var ret = int(math.MinInt64)
 	for head != nil {
 		if head.key == key {
-			return head.value
+			ret = head.value
+			break
 		}
 		head = head.nextEle
 	}
-	return int(math.MinInt64)
+	return ret
 }
 
 // Remove 根据键移除键值对，若不存在该键则返回MinInt
 func (h *HashTable) Remove(key string) int {
+	var ret int
 	var ArrIndex = h.getIndex(key)
 	var head = h.Array[ArrIndex]
 	var prev *HashNode = nil
@@ -117,17 +120,19 @@ func (h *HashTable) Remove(key string) int {
 	}
 	// 若未找到该键，返回MinInt
 	if head == nil {
-		return int(math.MinInt64)
-	}
-	// 找到了对应的键，移除键值对
-	h.size--
-	if prev != nil {
-		prev.nextEle = head.nextEle
+		ret = int(math.MinInt64)
 	} else {
-		// prev为nil则表示首位就是目标键值对，下一位移入数组顶替位置
-		h.Array[ArrIndex] = head.nextEle
+		// 找到了对应的键，移除键值对
+		h.size--
+		if prev != nil {
+			prev.nextEle = head.nextEle
+		} else {
+			// prev为nil则表示首位就是目标键值对，下一位移入数组顶替位置
+			h.Array[ArrIndex] = head.nextEle
+		}
+		ret = head.value
 	}
-	return head.value
+	return ret
 }
 
 // GetSize 返回哈希表元素个数

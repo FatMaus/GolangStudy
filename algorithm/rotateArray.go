@@ -6,6 +6,7 @@ func RotateArray(numArray []int) int {
 		start int = 0
 		end   int = len(numArray) - 1
 		mid   int = (end - start) / 2
+		ret   int
 	)
 	for end-start > 1 {
 		if numArray[mid] > numArray[end] {
@@ -17,7 +18,9 @@ func RotateArray(numArray []int) int {
 		}
 	}
 	if numArray[start] < numArray[end] {
-		return numArray[start]
+		ret = numArray[start]
+	} else {
+		ret = numArray[end]
 	}
-	return numArray[end]
+	return ret
 }
