@@ -175,3 +175,25 @@ func Bfs(root *TreeNode) [][]int {
 	}
 	return result
 }
+
+// MaxDepth 求二叉树最大深度，分治法+递归
+func MaxDepth(root *TreeNode) int {
+	var (
+		ret   int
+		left  int
+		right int
+	)
+	if root == nil {
+		ret = 0
+	} else {
+		left = MaxDepth(root.leftNode)
+		right = MaxDepth(root.rightNode)
+		switch {
+		case left > right:
+			ret = left + 1
+		case right >= left:
+			ret = right + 1
+		}
+	}
+	return ret
+}

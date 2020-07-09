@@ -143,7 +143,7 @@ func (b *BST) Remove(key int) bool {
 	return true
 }
 
-// 辅助函数，找出满足要求的替代节点。
+// getReplace 辅助函数，找出满足要求的替代节点。
 // 左子树的最大值和右子树的最小值比较，较大者为替代节点
 func getReplace(node *TreeNode) *TreeNode {
 	var (
