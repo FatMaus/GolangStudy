@@ -197,3 +197,44 @@ func MaxDepth(root *TreeNode) int {
 	}
 	return ret
 }
+
+// IsBalanced 查看二叉树是否是平衡二叉树
+func IsBalanced(root *TreeNode) bool {
+	var ret bool
+	if balancedDepth(root) == -1 {
+		ret = false
+	} else {
+		ret = true
+	}
+	return ret
+}
+
+// 使用辅助函数判断左右深度，探查深度差，深度差大于1就返回-1
+func balancedDepth(root *TreeNode) int {
+	var (
+		ret   int
+		left  int
+		right int
+	)
+	if root == nil {
+		ret = 0
+	} else {
+		left = balancedDepth(root.leftNode)
+		right = balancedDepth(root.rightNode)
+		switch {
+		case left-right == -1:
+			ret = right + 1
+		case left == right:
+			ret = right + 1
+		case left-right == 1:
+			ret = left + 1
+		case left == -1: // 一定要判断left或者right是否-1，否则会混淆
+			ret = -1
+		case right == -1:
+			ret = -1
+		default:
+			ret = -1
+		}
+	}
+	return ret
+}
