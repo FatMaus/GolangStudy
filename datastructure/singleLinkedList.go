@@ -41,9 +41,7 @@ func (s *SingleLinkList) Append(num int) {
 	// 对于空链表，直接加入。非空链表加到最后一位并建立链接
 	if s.size == 0 {
 		s.head = newNode
-		s.tail = s.head
-		s.size++
-		return
+		s.tail = s.head.nextEle
 	} else if s.tail == nil {
 		s.head.nextEle = newNode
 		s.tail = newNode
@@ -57,7 +55,7 @@ func (s *SingleLinkList) Append(num int) {
 // Insert 按索引插入元素
 func (s *SingleLinkList) Insert(position, num int) {
 	// 若索引超出范围，直接返回
-	if position > s.size {
+	if position > s.size || position < 0 {
 		fmt.Println("out range")
 		return
 	}
@@ -65,8 +63,9 @@ func (s *SingleLinkList) Insert(position, num int) {
 	// 首位添加
 	if position == 0 {
 		newNode.nextEle = s.head
+		s.head = newNode
 		if s.tail == nil {
-			s.tail = newNode
+			s.tail = newNode.nextEle
 		}
 		s.size++
 	} else if position == s.size {
@@ -75,7 +74,7 @@ func (s *SingleLinkList) Insert(position, num int) {
 	} else {
 		// 其余位置添加
 		var prev = s.head
-		for i := 0; i < position; i++ {
+		for i := 0; i < position-1; i++ {
 			prev = prev.nextEle
 		}
 		newNode.nextEle = prev.nextEle
