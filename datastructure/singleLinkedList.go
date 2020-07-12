@@ -165,11 +165,15 @@ func (s *SingleLinkList) IsCircle() bool {
 	var node1 = s.head
 	var node2 = s.head
 	var isCircle bool = false
+	if s.head == nil {
+		return isCircle
+	}
+	node2 = s.head.nextEle
 	for i := 0; i < s.size; i++ {
 		if reflect.DeepEqual(node1, node2) {
 			isCircle = true
 			break
-		} else if node2 == nil {
+		} else if node2 == nil || node2.nextEle == nil {
 			break
 		} else {
 			node1 = node1.nextEle
