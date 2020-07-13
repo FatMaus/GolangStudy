@@ -104,3 +104,102 @@ func reverseChainListBetween(head *ChainListNode, m int, n int) *ChainListNode {
 	linkNode.nextEle = head
 	return start.nextEle
 }
+
+// 合并升序链表，形成一个新的升序链表
+func mergeLists(l1 *ChainListNode, l2 *ChainListNode) *ChainListNode {
+	var (
+		// 在首节点可能被替换时，使用哑节点缓冲
+		dummy *ChainListNode = &ChainListNode{value: 0}
+		head  *ChainListNode = dummy
+	)
+	// 比较元素大小，逐个合并
+	for l1 != nil && l2 != nil {
+		if l1.value > l2.value {
+			head.nextEle = l2
+			l2 = l2.nextEle
+		} else {
+			head.nextEle = l1
+			l1 = l1.nextEle
+		}
+		head = head.nextEle
+	}
+	// 处理剩余节点
+	for l1 != nil {
+		head.nextEle = l1
+		l1 = l1.nextEle
+		head = head.nextEle
+	}
+	for l2 != nil {
+		head.nextEle = l2
+		l2 = l2.nextEle
+		head = head.nextEle
+	}
+	return dummy.nextEle
+}
+
+// 给定一个值x，使得链表中小于x的节点都位于链表前端(左)，大于x的节点都位于链表后端(右)
+func partition(head *ChainListNode, x int) *ChainListNode {
+	var (
+		dummyHead *ChainListNode = &ChainListNode{value: 0}
+		dummy     *ChainListNode = &ChainListNode{value: 0}
+		tail      *ChainListNode
+		temp      *ChainListNode
+	)
+	if head == nil {
+		return head
+	}
+	tail = dummy // 确定新链表起点
+	dummyHead.nextEle = head
+	head = dummyHead
+	for head.nextEle != nil {
+		if head.nextEle.value < x {
+			head = head.nextEle
+		} else {
+			// 从原链表中移除
+			temp = head.nextEle
+			head.nextEle = head.nextEle.nextEle
+			// 加入新链表
+			tail.nextEle = temp
+			tail = tail.nextEle
+		}
+	}
+	// 链表对接
+	tail.nextEle = nil
+	head.nextEle = dummy.nextEle
+	return dummyHead.nextEle
+}
+
+// ChainListMergeSort 链表归并排序
+func ChainListMergeSort(head *ChainListNode) *ChainListNode {
+	var (
+		mid   *ChainListNode
+		tail  *ChainListNode
+		left  *ChainListNode
+		right *ChainListNode
+		ret   *ChainListNode
+	)
+	if head == nil || head.nextEle == nil {
+		return head
+	}
+	mid = getMid(head)
+	tail = mid.nextEle
+	mid.nextEle = nil
+	left = ChainListMergeSort(head)
+	right = ChainListMergeSort(tail)
+	ret = mergeLists(left, right) // 利用两个有序链表拼接的方法进行对接
+	return ret
+}
+
+func getMid(head *ChainListNode) *ChainListNode {
+	var (
+		mid *ChainListNode
+		end *ChainListNode
+	)
+	mid = head
+	end = head.nextEle
+	for end != nil && end.nextEle != nil {
+		end = end.nextEle.nextEle
+		mid = mid.nextEle
+	}
+	return mid
+}
