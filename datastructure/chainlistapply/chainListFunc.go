@@ -5,12 +5,14 @@ func listCirclePoint(head *ChainListNode) *ChainListNode {
 	var (
 		fastPointer *ChainListNode
 		slowPointer *ChainListNode
+		ret         *ChainListNode
 	)
 	if head == nil {
 		return head
 	}
 	fastPointer = head.nextEle
 	slowPointer = head
+	ret = nil
 	for fastPointer != nil && fastPointer.nextEle != nil {
 		fastPointer = fastPointer.nextEle.nextEle
 		slowPointer = slowPointer.nextEle
@@ -21,8 +23,9 @@ func listCirclePoint(head *ChainListNode) *ChainListNode {
 				fastPointer = fastPointer.nextEle
 				slowPointer = slowPointer.nextEle
 			}
-			return slowPointer
+			ret = slowPointer
+			break
 		}
 	}
-	return nil
+	return ret
 }
