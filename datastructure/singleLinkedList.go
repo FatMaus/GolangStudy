@@ -182,3 +182,23 @@ func (s *SingleLinkList) IsCircle() bool {
 	}
 	return isCircle
 }
+
+func reverseChainList(head *SingleLinkNode) *SingleLinkNode {
+	if head == nil || head.nextEle == nil {
+		return head
+	}
+	var (
+		temp *SingleLinkNode
+		prev *SingleLinkNode = nil
+		cur  *SingleLinkNode = head
+	)
+	for cur.nextEle != nil {
+		temp = cur.nextEle
+		cur.nextEle = prev
+		prev = cur
+		cur = temp
+	}
+	cur.nextEle = prev
+	prev = cur
+	return prev
+}
