@@ -17,11 +17,13 @@ func MergeSort(numArr []int, start int, end int) {
 // merge 排序函数，主要比较中位元素和两侧元素
 func merge(numArr []int, left int, mid int, right int) {
 	// 拷贝数组进入一个辅助数组，以免影响原数组的元素
-	var helpArr = make([]int, len(numArr), len(numArr))
-	copy(helpArr, numArr)
 	// 设置辅助索引，进行排序
-	var leftStart = left
-	var rightStart = mid + 1
+	var (
+		leftStart  int   = left
+		rightStart int   = mid + 1
+		helpArr    []int = make([]int, len(numArr), len(numArr))
+	)
+	copy(helpArr, numArr)
 	for i := left; i <= right; i++ {
 		if leftStart > mid {
 			// 此时表明偶数个元素的数组已被拆至最简

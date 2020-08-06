@@ -15,10 +15,12 @@ func QuickSort(numArr []int, left int, right int) {
 // partition 通过基准元素快速分类，找到分治点以便分治
 func partition(numArr []int, left int, right int) int {
 	// 按兴趣取一个基准元素
-	var baseIndex = right
-	var pivot = numArr[baseIndex]
-	var leftIndex int = left
-	var rightIndex int = right - 1
+	var (
+		baseIndex  int = right
+		pivot      int = numArr[baseIndex]
+		leftIndex  int = left
+		rightIndex int = right - 1
+	)
 	// 只用排n-1个元素即可，双向排序到中间会和
 	for {
 		for leftIndex < right && numArr[leftIndex] <= pivot {
@@ -41,7 +43,7 @@ func partition(numArr []int, left int, right int) int {
 
 // swap 交换函数，用于交换两个元素的位置
 func swap(numArr []int, left int, right int) {
-	var temp = numArr[left]
+	var temp int = numArr[left]
 	numArr[left] = numArr[right]
 	numArr[right] = temp
 }
